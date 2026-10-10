@@ -1,0 +1,6 @@
+a = complex (5,1)
+b = complex (-5,-1)
+print (a)
+print (b)
+print (type (a))
+print (type (b))

@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hot Wheels Garage | Coleccionistas</title>
+
+    <style>
+        :root {
+            --rojo: #ed1c24;
+            --naranja: #ff6500;
+            --amarillo: #ffcc00;
+            --negro: #101010;
+            --gris: #1c1c1c;
+            --blanco: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--negro);
+            color: var(--blanco);
+        }
+
+        /* ENCABEZADO */
+
+        header {
+            background: linear-gradient(120deg, #c40000, #ff6500);
+            padding: 28px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--amarillo);
+        }
+
+        header h1 {
+            font-size: clamp(32px, 5vw, 55px);
+            font-weight: 900;
+            font-style: italic;
+            text-transform: uppercase;
+            text-shadow: 4px 4px #000;
+        }
+
+        header p {
+            margin-top: 10px;
+            font-size: 15px;
+            letter-spacing: 2px;
+        }
+
+        /* NAVEGACIÓN */
+
+        nav {
+            background: #080808;
+            padding: 18px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            border-bottom: 1px solid #333;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        nav a:hover {
+            color: var(--amarillo);
+        }
+
+        /* PORTADA */
+
+        .hero {
+            min-height: 350px;
+            padding: 70px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, .76),
+                    rgba(0, 0, 0, .86)
+                ),
+                url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1600&q=80")
+                center/cover;
+        }
+
+        .hero h2 {
+            font-size: clamp(30px, 5vw, 48px);
+            color: var(--amarillo);
+            margin-bottom: 18px;
+            font-style: italic;
+        }
+
+        .hero p {
+            max-width: 650px;
+            line-height: 1.7;
+            color: #eee;
+            margin-bottom: 25px;
+        }
+
+        .boton {
+            display: inline-block;
+            background: var(--rojo);
+            color: white;
+            padding: 14px 26px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: .3s;
+        }
+
+        .boton:hover {
+            background: var(--naranja);
+            transform: scale(1.04);
+        }
+
+        /* ESTADÍSTICAS */
+
+        .estadisticas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: #191919;
+            border-bottom: 1px solid #333;
+        }
+
+        .estadistica {
+            text-align: center;
+            padding: 24px 10px;
+            border-right: 1px solid #333;
+        }
+
+        .estadistica strong {
+            display: block;
+            font-size: 27px;
+            color: var(--amarillo);
+            margin-bottom: 7px;
+        }
+
+        .estadistica span {
+            color: #bbb;
+            font-size: 13px;
+        }
+
+        /* CONTENIDO */
+
+        .contenedor {
+            width: 92%;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 32px;
+            color: var(--amarillo);
+            margin: 55px 0 15px;
+        }
+
+        .descripcion-seccion {
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* FILTROS */
+
+        .filtros {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 30px 0;
+        }
+
+        .filtro {
+            border: 1px solid #444;
+            color: white;
+            background: #202020;
+            padding: 12px 17px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .filtro:hover,
+        .filtro.activo {
+            background: var(--rojo);
+            border-color: var(--rojo);
+        }
+
+        /* BUSCADOR */
+
+        .buscador {
+            width: 100%;
+            max-width: 550px;
+            margin: 0 auto 30px;
+        }
+
+        .buscador input {
+            width: 100%;
+            padding: 15px;
+            background: #202020;
+            border: 1px solid #555;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .buscador input:focus {
+            border-color: var(--amarillo);
+        }
+
+        /* CATÁLOGO */
+
+        .catalogo {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(235px, 1fr));
+            gap: 22px;
+            padding-bottom: 50px;
+        }
+
+        .carrito {
+            background: var(--gris);
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform .3s, border-color .3s;
+        }
+
+        .carrito:hover {
+            transform: translateY(-7px);
+            border-color: var(--amarillo);
+        }
+
+        .imagen-carrito {
+            height: 225px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .imagen-carrito img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform .4s;
+        }
+
+        .carrito:hover .imagen-carrito img {
+            transform: scale(1.05);
+        }
+
+        .info-carrito {
+            padding: 18px;
+        }
+
+        .etiqueta {
+            display: inline-block;
+            background: #333;
+            color: var(--amarillo);
+            font-size: 11px;
+            font-weight: bold;
+            padding: 7px 10px;
+            border-radius: 4px;
+            margin-bottom: 13px;
+        }
+
+        .info-carrito h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .info-carrito p {
+            font-size: 13px;
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .boton-detalles {
+            display: block;
+            width: 100%;
+            padding: 11px;
+            color: white;
+            background: #303030;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: .3s;
+        }
+
+        .boton-detalles:hover {
+            background: var(--rojo);
+            border-color: var(--rojo);
+        }
+
+        .sin-resultados {
+            display: none;
+            text-align: center;
+            padding: 40px 10px;
+            color: #aaa;
+        }
+
+        /* COLECCIONES */
+
+        .colecciones {
+            background: #181818;
+            padding: 40px 20px 55px;
+            margin-top: 10px;
+        }
+
+        .colecciones-grid {
+            max-width: 1100px;
+            margin: 30px auto 0;
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .coleccion-item {
+            background: #242424;
+            border-left: 4px solid var(--rojo);
+            padding: 22px;
+            border-radius: 5px;
+        }
+
+        .coleccion-item h3 {
+            color: var(--amarillo);
+            margin-bottom: 12px;
+        }
+
+        .coleccion-item p {
+            color: #bbb;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* INFORMACIÓN */
+
+        .acerca {
+            max-width: 850px;
+            margin: auto;
+            padding: 55px 20px;
+            text-align: center;
+        }
+
+        .acerca h2 {
+            color: var(--amarillo);
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .acerca p {
+            color: #bbb;
+            line-height: 1.9;
+        }
+
+        /* PIE DE PÁGINA */
+
+        footer {
+            background: #080808;
+            border-top: 3px solid var(--rojo);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: var(--amarillo);
+            margin-bottom: 12px;
+        }
+
+        footer p {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* VENTANA DE DETALLES */
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-contenido {
+            background: #202020;
+            border: 1px solid var(--amarillo);
+            border-radius: 10px;
+            padding: 28px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .modal-contenido h2 {
+            color: var(--amarillo);
+            margin-bottom: 15px;
+        }
+
+        .modal-contenido p {
+            color: #ccc;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .cerrar {
+            background: var(--rojo);
+            color: white;
+            padding: 11px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* ADAPTACIÓN A CELULARES */
+
+        @media (max-width: 600px) {
+            .estadistica strong {
+                font-size: 21px;
+            }
+
+            .estadistica span {
+                font-size: 11px;
+            }
+
+            .titulo-seccion {
+                font-size: 26px;
+            }
+
+            .imagen-carrito {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+
+    <header>
+        <h1>🔥 Hot Wheels Garage 🔥</h1>
+        <p>EL MUNDO DE LOS AUTOS A ESCALA</p>
+    </header>
+
+    <!-- MENÚ -->
+
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#colecciones">Colecciones</a>
+        <a href="#acerca">Acerca de</a>
+    </nav>
+
+    <!-- PORTADA -->
+
+    <section class="hero" id="inicio">
+        <h2>COLECCIONA LA VELOCIDAD</h2>
+
+        <p>
+            Descubre el mundo de Hot Wheels:
+            desde los modelos Mainline hasta las exclusivas
+            piezas de Red Line Club.
+        </p>
+
+        <a href="#catalogo" class="boton">
+            EXPLORAR CATÁLOGO
+        </a>
+    </section>
+
+    <!-- ESTADÍSTICAS -->
+
+    <section class="estadisticas">
+        <div class="estadistica">
+            <strong id="totalModelos">14+</strong>
+            <span>MODELOS</span>
+        </div>
+
+        <div class="estadistica">
+            <strong>6</strong>
+            <span>COLECCIONES</span>
+        </div>
+
+        <div class="estadistica">
+            <strong>1:64</strong>
+            <span>ESCALA TRADICIONAL</span>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+
+    <main class="contenedor" id="catalogo">
+
+        <h2 class="titulo-seccion">
+            🏎️ CATÁLOGO DE CARRITOS
+        </h2>
+
+        <p class="descripcion-seccion">
+            Explora los modelos y selecciona tu colección favorita.
+        </p>
+
+        <!-- BUSCADOR -->
+
+        <div class="buscador">
+            <input
+                type="search"
+                id="busqueda"
+                placeholder="🔎 Buscar por nombre o colección..."
+                aria-label="Buscar carritos"
+            >
+        </div>
+
+        <!-- FILTROS -->
+
+        <div class="filtros">
+
+            <button class="filtro activo" data-filtro="Todos">
+                Todos
+            </button>
+
+            <button class="filtro" data-filtro="Mainline">
+                Mainline
+            </button>
+
+            <button class="filtro" data-filtro="TH">
+                Treasure Hunts
+            </button>
+
+            <button class="filtro" data-filtro="STH">
+                Super Treasure Hunts
+            </button>
+
+            <button class="filtro" data-filtro="ZAMAC">
+                Zamac
+            </button>
+
+            <button class="filtro" data-filtro="Premium">
+                Premium
+            </button>
+
+            <button class="filtro" data-filtro="RLC">
+                Red Line Club
+            </button>
+
+        </div>
+
+        <!-- AQUÍ APARECEN LOS CARRITOS -->
+
+        <div class="catalogo" id="listaCarritos"></div>
+
+        <div class="sin-resultados" id="sinResultados">
+            <h3>No encontramos ese carrito 😕</h3>
+            <p>Prueba con otro nombre o selecciona otra colección.</p>
+        </div>
+
+    </main>
+
+    <!-- EXPLICACIÓN DE LAS COLECCIONES -->
+
+    <section class="colecciones" id="colecciones">
+
+        <h2 class="titulo-seccion">
+            🏆 CONOCE LAS COLECCIONES
+        </h2>
+
+        <p class="descripcion-seccion">
+            Cada línea tiene características que la hacen especial.
+        </p>
+
+        <div class="colecciones-grid">
+
+            <article class="coleccion-item">
+                <h3>Mainline</h3>
+                <p>
+                    Es la línea básica de Hot Wheels.
+                    Incluye cientos de modelos cada año,
+                    con autos licenciados y diseños originales.
+                </p>
+            </article>
+
+            <article class="coleccion-item">
+                <h3>Treasure Hunts (TH)</h3>
+                <p>
+                    Son variantes especiales que pueden aparecer
+                    entre los modelos básicos. Se identifican
+                    por detalles y símbolos relacionados con
+                    Treasure Hunt.
+                </p>
+            </article>
+
+            <article class="coleccion-item">
+                <h3>Super Treasure Hunts (STH)</h3>
+                <p>
+                    Son variantes especialmente buscadas por
+                    coleccionistas. Suelen incluir pintura
+                    Spectraflame y neumáticos Real Riders.
+                </p>
+            </article>
+
+            <article class="coleccion-item">
+                <h3>Zamac</h3>
+                <p>
+                    Son modelos con acabado metálico sin pintura
+                    de color convencional en la carrocería,
+                    generalmente con decoraciones impresas.
+                </p>
+            </article>
+
+            <article class="coleccion-item">
+                <h3>Línea Premium</h3>
+                <p>
+                    Destaca por sus acabados detallados.
+                    Muchos modelos incorporan carrocería y chasis
+                    metálicos y neumáticos Real Riders.
+                </p>
+            </article>
+
+            <article class="coleccion-item">
+                <h3>Red Line Club (RLC)</h3>
+                <p>
+                    Es una línea exclusiva para miembros del club.
+                    Sus modelos pueden tener acabados especiales,
+                    detalles adicionales y producción limitada.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ACERCA DE -->
+
+    <section class="acerca" id="acerca">
+
+        <h2>🔥 Pasión por Hot Wheels</h2>
+
+        <p>
+            Hot Wheels es una marca de vehículos a escala creada
+            por Mattel en 1968. Sus modelos abarcan desde autos
+            deportivos y clásicos hasta vehículos de fantasía.
+            Las distintas líneas ofrecen alternativas para jugar,
+            exhibir y coleccionar. Cada modelo puede tener
+            diferentes colores, ruedas, decoraciones y ediciones.
+        </p>
+
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer>
+        <h3>HOT WHEELS GARAGE</h3>
+
+        <p>
+            Un espacio dedicado a los coleccionistas de autos a escala.
+        </p>
+
+        <p>
+            Proyecto independiente de aficionados.
+            Hot Wheels es una marca de Mattel.
+        </p>
+
+        <p>© 2026 - Catálogo de coleccionismo</p>
+    </footer>
+
+    <!-- VENTANA DE DETALLES -->
+
+    <div class="modal" id="modal">
+
+        <div class="modal-contenido">
+
+            <h2 id="modalTitulo"></h2>
+
+            <p id="modalTexto"></p>
+
+            <button class="cerrar" id="cerrarModal">
+                Cerrar
+            </button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // CATÁLOGO DE MODELOS
+        // Las imágenes corresponden a miniaturas Hot Wheels.
+
+        const modelos = [
+
+            // =========================
+            // MAINLINE
+            // =========================
+
+            {
+                nombre: "Porsche 904 Carrera GTS",
+                coleccion: "Mainline",
+                detalle: "HW Exotics. Modelo a escala 1:64, con decoración de carreras.",
+                imagen: "https://a-static.mlcdn.com.br/%7Bw%7Dx%7Bh%7D/miniatura-hot-wheels-porsche-904-carrera-gts-hry73-158-250/geekstoreprodutoscolecionavei/11510/33a56ee35f89ca7dd2151fee45b3ca86.jpeg"
+            },
+
+            {
+                nombre: "Pagani Huayra",
+                coleccion: "Mainline",
+                detalle: "Miniatura Hot Wheels verde con detalles negros.",
+                imagen: "https://i.ebayimg.com/images/g/MloAAOSwE~Rfm7fk/s-l1200.jpg"
+            },
+
+            {
+                nombre: "Porsche 904 Carrera GTS Race Day",
+                coleccion: "Mainline",
+                detalle: "Variante de Porsche 904 Carrera GTS de la línea básica.",
+                imagen: "https://i.ebayimg.com/images/g/NvgAAOSwepdnYrzQ/s-l1200.jpg"
+            },
+
+            // =========================
+            // TREASURE HUNTS
+            // =========================
+
+            {
+                nombre: "1969 Chevelle SS 396",
+                coleccion: "TH",
+                detalle: "Treasure Hunts. Miniatura con decoración de carreras y ruedas rojas.",
+                imagen: "https://i.ebayimg.com/00/s/MTIwMFgxNjAw/z/Q78AAOSw3nRnvvAg/%24_57.JPG?set_id=880000500F"
+            },
+
+            {
+                nombre: "1969 Ford Torino Talladega",
+                coleccion: "TH",
+                detalle: "Variante Treasure Hunt con decoración verde de competición.",
+                imagen: "https://www.itsfun.in/cdn/shop/files/IMG_7239.jpg?v=1763478945&width=1946"
+            },
+
+            // =========================
+            // SUPER TREASURE HUNTS
+            // =========================
+
+            {
+                nombre: "1987 Audi quattro",
+                coleccion: "STH",
+                detalle: "Super Treasure Hunt 2025. Acabado Spectraflame verde y ruedas blancas.",
+                imagen: "https://storage.ghost.io/c/81/4f/814f42c9-9554-47a0-a5c0-499b2f9606cf/content/images/2024/09/25-87-Audi-quattro-0.jpg"
+            },
+
+            {
+                nombre: "1969 Pontiac GTO",
+                coleccion: "STH",
+                detalle: "Miniatura Super Treasure Hunt de 2007, con decoración azul y amarilla.",
+                imagen: "https://99diecast.com/cdn/shop/files/HW-K7612S_front_2ff36f8c-9d65-4d8c-a066-cd4a872eadc1_1200x1200.jpg?v=1764778292"
+            },
+
+            // =========================
+            // ZAMAC
+            // =========================
+
+            {
+                nombre: "Ford Focus RS Zamac",
+                coleccion: "ZAMAC",
+                detalle: "Edición Zamac con carrocería de apariencia metálica y decoración de carreras.",
+                imagen: "https://speedcastings.com/cdn/shop/files/HotWheelsZamac-FordFocusRS.png?v=1740518175"
+            },
+
+            {
+                nombre: "Mercedes-Benz C63 AMG Zamac",
+                coleccion: "ZAMAC",
+                detalle: "Miniatura Zamac plateada con franjas negras y detalles amarillos.",
+                imagen: "https://images.whatnot.com/fit-in/1200x0/filters%3Aformat%28webp%29/listings%2F814919186-0-3b3a9e43-5e55-4572-841d-de60ebfafc56"
+            },
+
+            // =========================
+            // PREMIUM
+            // =========================
+
+            {
+                nombre: "Porsche 911 GT3 RS",
+                coleccion: "Premium",
+                detalle: "Car Culture. Miniatura Premium con neumáticos Real Riders.",
+                imagen: "https://img.everymarket.com/5y7zcxob8hu6737zzntpnsgdravz?format=jpg&height=800&width=800"
+            },
+
+            {
+                nombre: "Nissan Fairlady Z",
+                coleccion: "Premium",
+                detalle: "Car Culture Circuit Legends. Miniatura Premium de estilo clásico.",
+                imagen: "https://www.toynova.de/media/image/product/59640/lg/mattel-fpy86-hrv86-hot-wheels-premium-car-culture-real-riders-2024-circuit-legends-3-5-nissan-fairlady-z.png"
+            },
+
+            {
+                nombre: "1994 Mercedes-Benz C-Class DTM",
+                coleccion: "Premium",
+                detalle: "Miniatura Premium con decoración de competición DTM.",
+                imagen: "https://down-sg.img.susercontent.com/file/sg-11134201-824ic-meqimr9nx4hw86"
+            },
+
+            // =========================
+            // RED LINE CLUB
+            // =========================
+
+            {
+                nombre: "1965 Shelby Cobra 427 S/C",
+                coleccion: "RLC",
+                detalle: "Red Line Club 2026. Acabado Spectraflame rojo y ruedas Real Riders.",
+                imagen: "https://images.mattel.net/image/upload/c_scale%2Cw_600/creations-us-prod/files/cdcs6enrx2smxg156t24.jpg?v=1772127418"
+            },
+
+            {
+                nombre: "1971 AMC Javelin AMX",
+                coleccion: "RLC",
+                detalle: "Edición Red Line Club con decoración tricolor y detalles de colección.",
+                imagen: "https://speedzone-web.com/cdn/shop/files/s-l1600_e2dbbd3b-6d06-43bc-898d-39144fff7b98_2048x2048.webp?v=1778088896"
+            }
+
+        ];
+
+        // ELEMENTOS HTML
+
+        const lista = document.getElementById("listaCarritos");
+        const busqueda = document.getElementById("busqueda");
+        const botones = document.querySelectorAll(".filtro");
+        const sinResultados = document.getElementById("sinResultados");
+
+        let filtroActual = "Todos";
+
+        // GENERAR TARJETAS
+
+        function mostrarCarritos() {
+
+            const texto = busqueda.value.toLowerCase();
+
+            const filtrados = modelos.filter(modelo => {
+
+                const coincideNombre =
+                    modelo.nombre.toLowerCase().includes(texto);
+
+                const coincideColeccion =
+                    modelo.coleccion.toLowerCase().includes(texto);
+
+                const coincideFiltro =
+                    filtroActual === "Todos" ||
+                    modelo.coleccion === filtroActual;
+
+                return (coincideNombre || coincideColeccion)
+                    && coincideFiltro;
+
+            });
+
+            lista.innerHTML = "";
+
+            sinResultados.style.display =
+                filtrados.length === 0 ? "block" : "none";
+
+            filtrados.forEach(modelo => {
+
+                const tarjeta = document.createElement("article");
+
+                tarjeta.className = "carrito";
+
+                // Construir elementos con DOM evita insertar
+                // los nombres de los modelos como HTML.
+
+                const contenedorImagen = document.createElement("div");
+                contenedorImagen.className = "imagen-carrito";
+
+                const imagen = document.createElement("img");
+                imagen.src = modelo.imagen;
+                imagen.alt = "Miniatura Hot Wheels: " + modelo.nombre;
+                imagen.loading = "lazy";
+
+                // Si falla una imagen, mostrar aviso.
+                imagen.onerror = function () {
+                    this.onerror = null;
+                    this.removeAttribute("src");
+                    this.alt = "Fotografía no disponible";
+                    this.style.display = "none";
+
+                    const aviso = document.createElement("p");
+                    aviso.textContent = "Imagen no disponible";
+                    aviso.style.color = "#333";
+                    aviso.style.fontWeight = "bold";
+
+                    contenedorImagen.appendChild(aviso);
+                };
+
+                contenedorImagen.appendChild(imagen);
+
+                const informacion = document.createElement("div");
+                informacion.className = "info-carrito";
+
+                const etiqueta = document.createElement("span");
+                etiqueta.className = "etiqueta";
+                etiqueta.textContent = nombreColeccion(modelo.coleccion);
+
+                const titulo = document.createElement("h3");
+                titulo.textContent = modelo.nombre;
+
+                const descripcion = document.createElement("p");
+                descripcion.textContent = modelo.detalle;
+
+                const boton = document.createElement("button");
+                boton.className = "boton-detalles";
+                boton.textContent = "Ver detalles";
+
+                boton.addEventListener("click", () => {
+                    abrirModal(modelo);
+                });
+
+                informacion.append(
+                    etiqueta,
+                    titulo,
+                    descripcion,
+                    boton
+                );
+
+                tarjeta.append(
+                    contenedorImagen,
+                    informacion
+                );
+
+                lista.appendChild(tarjeta);
+
+            });
+
+        }
+
+        // NOMBRES DE LAS COLECCIONES
+
+        function nombreColeccion(codigo) {
+
+            const nombres = {
+                Mainline: "MAINLINE",
+                TH: "TREASURE HUNT",
+                STH: "SUPER TREASURE HUNT",
+                ZAMAC: "ZAMAC",
+                Premium: "PREMIUM",
+                RLC: "RED LINE CLUB"
+            };
+
+            return nombres[codigo] || codigo;
+        }
+
+        // FILTRAR COLECCIONES
+
+        botones.forEach(boton => {
+
+            boton.addEventListener("click", () => {
+
+                botones.forEach(b => b.classList.remove("activo"));
+
+                boton.classList.add("activo");
+
+                filtroActual = boton.dataset.filtro;
+
+                mostrarCarritos();
+
+            });
+
+        });
+
+        // BUSCADOR
+
+        busqueda.addEventListener("input", mostrarCarritos);
+
+        // MODAL
+
+        function abrirModal(modelo) {
+
+            document.getElementById("modalTitulo").textContent =
+                modelo.nombre;
+
+            document.getElementById("modalTexto").textContent =
+                "Colección: " + nombreColeccion(modelo.coleccion)
+                + ". " + modelo.detalle;
+
+            document.getElementById("modal").style.display = "flex";
+
+        }
+
+        document.getElementById("cerrarModal").addEventListener(
+            "click",
+            () => {
+                document.getElementById("modal").style.display = "none";
+            }
+        );
+
+        document.getElementById("modal").addEventListener(
+            "click",
+            evento => {
+
+                if (evento.target.id === "modal") {
+                    evento.currentTarget.style.display = "none";
+                }
+
+            }
+        );
+
+        // INICIAR PÁGINA
+
+        document.getElementById("totalModelos").textContent =
+            modelos.length;
+
+        mostrarCarritos();
+
+    </script>
+
+</body>
+</html>
